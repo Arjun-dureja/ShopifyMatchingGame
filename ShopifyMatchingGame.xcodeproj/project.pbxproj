@@ -13,6 +13,9 @@
 		72CF6BB423B42BC800F43CFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72CF6BB223B42BC800F43CFB /* Main.storyboard */; };
 		72CF6BB623B42BCB00F43CFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72CF6BB523B42BCB00F43CFB /* Assets.xcassets */; };
 		72CF6BB923B42BCB00F43CFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72CF6BB723B42BCB00F43CFB /* LaunchScreen.storyboard */; };
+		72CF6BC123B45F0100F43CFB /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72CF6BC023B45F0100F43CFB /* CardModel.swift */; };
+		72CF6BC323B46F7A00F43CFB /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72CF6BC223B46F7A00F43CFB /* Card.swift */; };
+		72CF6BC523B475E700F43CFB /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72CF6BC423B475E700F43CFB /* CardCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		72CF6BB523B42BCB00F43CFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		72CF6BB823B42BCB00F43CFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		72CF6BBA23B42BCB00F43CFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		72CF6BC023B45F0100F43CFB /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
+		72CF6BC223B46F7A00F43CFB /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		72CF6BC423B475E700F43CFB /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +47,6 @@
 			isa = PBXGroup;
 			children = (
 				72CF6BAB23B42BC800F43CFB /* ShopifyMatchingGame */,
-				72CF6BAA23B42BC800F43CFB /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,6 +56,7 @@
 				72CF6BA923B42BC800F43CFB /* ShopifyMatchingGame.app */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		72CF6BAB23B42BC800F43CFB /* ShopifyMatchingGame */ = {
@@ -59,10 +65,14 @@
 				72CF6BAC23B42BC800F43CFB /* AppDelegate.swift */,
 				72CF6BAE23B42BC800F43CFB /* SceneDelegate.swift */,
 				72CF6BB023B42BC800F43CFB /* ViewController.swift */,
+				72CF6BC023B45F0100F43CFB /* CardModel.swift */,
+				72CF6BC223B46F7A00F43CFB /* Card.swift */,
 				72CF6BB223B42BC800F43CFB /* Main.storyboard */,
 				72CF6BB523B42BCB00F43CFB /* Assets.xcassets */,
 				72CF6BB723B42BCB00F43CFB /* LaunchScreen.storyboard */,
 				72CF6BBA23B42BCB00F43CFB /* Info.plist */,
+				72CF6BAA23B42BC800F43CFB /* Products */,
+				72CF6BC423B475E700F43CFB /* CardCollectionViewCell.swift */,
 			);
 			path = ShopifyMatchingGame;
 			sourceTree = "<group>";
@@ -139,7 +149,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				72CF6BB123B42BC800F43CFB /* ViewController.swift in Sources */,
+				72CF6BC123B45F0100F43CFB /* CardModel.swift in Sources */,
+				72CF6BC323B46F7A00F43CFB /* Card.swift in Sources */,
 				72CF6BAD23B42BC800F43CFB /* AppDelegate.swift in Sources */,
+				72CF6BC523B475E700F43CFB /* CardCollectionViewCell.swift in Sources */,
 				72CF6BAF23B42BC800F43CFB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
