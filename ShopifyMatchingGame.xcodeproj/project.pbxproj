@@ -67,12 +67,12 @@
 				72CF6BB023B42BC800F43CFB /* ViewController.swift */,
 				72CF6BC023B45F0100F43CFB /* CardModel.swift */,
 				72CF6BC223B46F7A00F43CFB /* Card.swift */,
+				72CF6BC423B475E700F43CFB /* CardCollectionViewCell.swift */,
 				72CF6BB223B42BC800F43CFB /* Main.storyboard */,
 				72CF6BB523B42BCB00F43CFB /* Assets.xcassets */,
 				72CF6BB723B42BCB00F43CFB /* LaunchScreen.storyboard */,
 				72CF6BBA23B42BCB00F43CFB /* Info.plist */,
 				72CF6BAA23B42BC800F43CFB /* Products */,
-				72CF6BC423B475E700F43CFB /* CardCollectionViewCell.swift */,
 			);
 			path = ShopifyMatchingGame;
 			sourceTree = "<group>";

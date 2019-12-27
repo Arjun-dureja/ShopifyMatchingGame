@@ -15,12 +15,14 @@ class CardModel {
         var cards = [Card]()
         var nums = [Int]()
         var randNum = 0
+        
         for _ in 1...10 {
             repeat {
                 randNum = Int.random(in: 1...50)
             } while(nums.contains(randNum))
             nums.append(randNum)
-            print(randNum)
+            print("Random number: \(randNum)")
+            
             let cardOne = Card()
             cardOne.imageName = "card\(randNum)"
             
@@ -32,6 +34,7 @@ class CardModel {
             cards.append(cardTwo)
         }
         
+        print("Number of cards: \(cards.count)")
         return cards
     }
 }
