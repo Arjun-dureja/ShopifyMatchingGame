@@ -29,8 +29,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
     
-    // MARK: - UICollectionView Protocol Methods
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cardArray.count
     }
@@ -58,10 +56,35 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 firstCard = indexPath
             }
             else {
-                
+                checkMatch(indexPath)
             }
         }
     }
+    
+    func checkMatch(_ secondCard:IndexPath) {
+        let cardOneCell = collectionView.cellForItem(at: firstCard!) as? CardCollectionViewCell
+        
+        let cardTwoCell = collectionView.cellForItem(at: secondCard) as? CardCollectionViewCell
+        
+        let cardOne = cardArray[firstCard!.row]
+        let cardTwo = cardArray[secondCard.row]
+        
+        if cardOne.imageName == cardTwo.imageName {
+            cardOne.isMatched = true
+            cardTwo.isMatched = true
+        }
+        else {
+            cardOne.isFlipped = false
+            cardTwo.isFlipped = false
+            
+            cardOneCell?.flipBack()
+            cardTwoCell?.flipBack()
+        }
+        
+        firstCard = nil
+    }
+    
+    
 }
 
 
