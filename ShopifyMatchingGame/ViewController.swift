@@ -10,12 +10,16 @@ import UIKit
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
+    @IBOutlet weak var matchedLabel: UILabel!
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     var model = CardModel()
     var cardArray = [Card]()
     
     var firstCard:IndexPath?
+    
+    var matched = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +76,26 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         if cardOne.imageName == cardTwo.imageName {
             cardOne.isMatched = true
             cardTwo.isMatched = true
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                self.matched += 1
+                self.matchedLabel.text = "Matched: \(self.matched)"
+            }
+            
+            if(checkWin()) {
+
+                let alert = UIAlertController(title: "Congratulations!", message: "You Won", preferredStyle: .alert)
+                
+                let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                
+                alert.addAction(alertAction)
+            
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                    self.present(alert, animated: true, completion: nil)
+                }
+
+            }
+            
         }
         else {
             cardOne.isFlipped = false
@@ -82,6 +106,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         
         firstCard = nil
+    }
+    
+    func checkWin() -> Bool {
+        for card in cardArray {
+            if card.isMatched == false{
+                return false
+            }
+        }
+        return true
     }
     
     

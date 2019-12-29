@@ -20,6 +20,7 @@ class CardModel {
             repeat {
                 randNum = Int.random(in: 1...50)
             } while(nums.contains(randNum))
+            
             nums.append(randNum)
             print("Random number: \(randNum)")
             
