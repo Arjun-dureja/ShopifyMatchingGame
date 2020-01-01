@@ -16,7 +16,7 @@ class CardModel {
         var nums = [Int]()
         var randNum = 0
         
-        for _ in 1...10 {
+        while nums.count < 10 {
             repeat {
                 randNum = Int.random(in: 1...50)
             } while(nums.contains(randNum))
@@ -35,7 +35,19 @@ class CardModel {
             cards.append(cardTwo)
         }
         
+        cards = shuffle(c: cards)
+        
         print("Number of cards: \(cards.count)")
         return cards
     }
+    
+    func shuffle(c: [Card]) -> [Card] {
+        // Shuffle cards using Knuth shuffle algorithm
+        var cards = c
+        for i in 0...cards.count-1 {
+            cards.swapAt(i, Int(arc4random_uniform(UInt32(i+1))))
+        }
+        return cards
+    }
+    
 }

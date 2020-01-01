@@ -17,7 +17,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var model = CardModel()
     var cardArray = [Card]()
     
-    var firstCard:IndexPath?
+    var firstCardIndex:IndexPath?
+    var firstCard:Card?
     
     var matched = 0
     
@@ -51,13 +52,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let cell = collectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
         
         let card = cardArray[indexPath.row]
-        
+
         if card.isFlipped == false {
             cell.flip()
             card.isFlipped = true
             
-            if firstCard == nil {
-                firstCard = indexPath
+            if firstCardIndex == nil {
+                firstCardIndex = indexPath
+                firstCard = cardArray[firstCardIndex!.row]
             }
             else {
                 checkMatch(indexPath)
@@ -65,13 +67,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    func checkMatch(_ secondCard:IndexPath) {
-        let cardOneCell = collectionView.cellForItem(at: firstCard!) as? CardCollectionViewCell
+    func checkMatch(_ secondCardIndex:IndexPath) {
+        let cardOneCell = collectionView.cellForItem(at: firstCardIndex!) as? CardCollectionViewCell
         
-        let cardTwoCell = collectionView.cellForItem(at: secondCard) as? CardCollectionViewCell
+        let cardTwoCell = collectionView.cellForItem(at: secondCardIndex) as? CardCollectionViewCell
         
-        let cardOne = cardArray[firstCard!.row]
-        let cardTwo = cardArray[secondCard.row]
+        let cardOne = cardArray[firstCardIndex!.row]
+        let cardTwo = cardArray[secondCardIndex.row]
         
         if cardOne.imageName == cardTwo.imageName {
             cardOne.isMatched = true
@@ -105,6 +107,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             cardTwoCell?.flipBack()
         }
         
+        firstCardIndex = nil
         firstCard = nil
     }
     
@@ -116,8 +119,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         return true
     }
-    
-    
+
+    @IBAction func shuffleButton(_ sender: UIButton) {
+        cardArray = model.shuffle(c: cardArray)
+        if firstCard != nil {
+            for index in collectionView.indexPathsForVisibleItems {
+                if cardArray[index.row] === firstCard {
+                    firstCardIndex = index
+                }
+            }
+        }
+        collectionView.reloadData()
+    }
 }
 
 
