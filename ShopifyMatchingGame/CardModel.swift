@@ -10,13 +10,13 @@ import Foundation
 
 class CardModel {
     
-    func getCards() -> [Card] {
+    func getCards(_ size:Int) -> [Card] {
         
         var cards = [Card]()
         var nums = [Int]()
         var randNum = 0
         
-        while nums.count < 10 {
+        while nums.count < size {
             repeat {
                 randNum = Int.random(in: 1...50)
             } while(nums.contains(randNum))
@@ -44,6 +44,7 @@ class CardModel {
     func shuffle(c: [Card]) -> [Card] {
         // Shuffle cards using Knuth shuffle algorithm
         var cards = c
+
         for i in 0...cards.count-1 {
             cards.swapAt(i, Int(arc4random_uniform(UInt32(i+1))))
         }

@@ -16,6 +16,7 @@
 		72CF6BC123B45F0100F43CFB /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72CF6BC023B45F0100F43CFB /* CardModel.swift */; };
 		72CF6BC323B46F7A00F43CFB /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72CF6BC223B46F7A00F43CFB /* Card.swift */; };
 		72CF6BC523B475E700F43CFB /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72CF6BC423B475E700F43CFB /* CardCollectionViewCell.swift */; };
+		72CF6BCB23BD896E00F43CFB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72CF6BCA23BD896E00F43CFB /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		72CF6BC023B45F0100F43CFB /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		72CF6BC223B46F7A00F43CFB /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		72CF6BC423B475E700F43CFB /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
+		72CF6BCA23BD896E00F43CFB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,13 +64,14 @@
 		72CF6BAB23B42BC800F43CFB /* ShopifyMatchingGame */ = {
 			isa = PBXGroup;
 			children = (
+				72CF6BB223B42BC800F43CFB /* Main.storyboard */,
 				72CF6BAC23B42BC800F43CFB /* AppDelegate.swift */,
 				72CF6BAE23B42BC800F43CFB /* SceneDelegate.swift */,
 				72CF6BB023B42BC800F43CFB /* ViewController.swift */,
+				72CF6BCA23BD896E00F43CFB /* HomeViewController.swift */,
 				72CF6BC023B45F0100F43CFB /* CardModel.swift */,
 				72CF6BC223B46F7A00F43CFB /* Card.swift */,
 				72CF6BC423B475E700F43CFB /* CardCollectionViewCell.swift */,
-				72CF6BB223B42BC800F43CFB /* Main.storyboard */,
 				72CF6BB523B42BCB00F43CFB /* Assets.xcassets */,
 				72CF6BB723B42BCB00F43CFB /* LaunchScreen.storyboard */,
 				72CF6BBA23B42BCB00F43CFB /* Info.plist */,
@@ -153,6 +156,7 @@
 				72CF6BC323B46F7A00F43CFB /* Card.swift in Sources */,
 				72CF6BAD23B42BC800F43CFB /* AppDelegate.swift in Sources */,
 				72CF6BC523B475E700F43CFB /* CardCollectionViewCell.swift in Sources */,
+				72CF6BCB23BD896E00F43CFB /* HomeViewController.swift in Sources */,
 				72CF6BAF23B42BC800F43CFB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

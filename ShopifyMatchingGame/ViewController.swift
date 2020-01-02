@@ -14,7 +14,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     @IBOutlet weak var scoreLabel: UILabel!
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var cardCollectionView: UICollectionView!
     
     var model = CardModel()
     var cardArray = [Card]()
@@ -24,23 +24,31 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var matched = 0
     var score = 0
-
+    var gridSize = 10
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let layout = cardCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        switch gridSize {
+        case 15:
+            layout.itemSize = CGSize(width: 55, height: 95)
+        case 20:
+            layout.itemSize = CGSize(width: 55, height: 70)
+        default:
+            layout.itemSize = CGSize(width: 75, height: 112.5)
+        }
+        cardArray = model.getCards(gridSize)
         
-        cardArray = model.getCards()
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        self.collectionView?.backgroundColor = UIColor.clear
-        self.collectionView?.backgroundView = UIView(frame: CGRect.zero)
-        
+        cardCollectionView.delegate = self
+        cardCollectionView.dataSource = self
+        self.cardCollectionView?.backgroundColor = UIColor.clear
+        self.cardCollectionView?.backgroundView = UIView(frame: CGRect.zero)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cardArray.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as! CardCollectionViewCell
         
@@ -70,10 +78,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    
     func checkMatch(_ secondCardIndex:IndexPath) {
-        let cardOneCell = collectionView.cellForItem(at: firstCardIndex!) as? CardCollectionViewCell
+        let cardOneCell = cardCollectionView.cellForItem(at: firstCardIndex!) as? CardCollectionViewCell
         
-        let cardTwoCell = collectionView.cellForItem(at: secondCardIndex) as? CardCollectionViewCell
+        let cardTwoCell = cardCollectionView.cellForItem(at: secondCardIndex) as? CardCollectionViewCell
         
         let cardOne = cardArray[firstCardIndex!.row]
         let cardTwo = cardArray[secondCardIndex.row]
@@ -92,11 +101,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             if(checkWin()) {
 
-                let alert = UIAlertController(title: "You Win!", message: "Score: \(score+1)", preferredStyle: .alert)
+                let alert = UIAlertController(title: "You Win!", message: "Score: \(score-1)", preferredStyle: .alert)
                 
-                let alertAction = UIAlertAction(title: "Play Again", style: .default, handler: {
+                let alertAction = UIAlertAction(title: "Home", style: .default, handler: {
                         (UIAlertAction) in
-                        self.restartGame()
+                        let vc = storyBoard.instantiateViewController(identifier: "home") as! HomeViewController
+                        vc.modalPresentationStyle = .fullScreen
+                        self.present(vc, animated: true, completion: nil)
                 })
                 
                 alert.addAction(alertAction)
@@ -137,21 +148,23 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBAction func shuffleButton(_ sender: UIButton) {
         cardArray = model.shuffle(c: cardArray)
         if firstCard != nil {
-            for index in collectionView.indexPathsForVisibleItems {
+            for index in cardCollectionView.indexPathsForVisibleItems {
                 if cardArray[index.row] === firstCard {
                     firstCardIndex = index
                 }
             }
         }
-        collectionView.reloadData()
+        cardCollectionView.reloadData()
     }
     
     func restartGame() {
         matched = 0
         score = 0
+        firstCard = nil
+        firstCardIndex = nil
         self.scoreLabel.text = "Score: \(self.score)"
         self.matchedLabel.text = "Matched: \(self.score)"
-        for cell in collectionView.visibleCells {
+        for cell in cardCollectionView.visibleCells {
             let cardCell = cell as? CardCollectionViewCell
             cardCell?.flipBack(0.001)
         }
@@ -159,9 +172,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             card.isFlipped = false
             card.isMatched = false
         }
-        cardArray = model.shuffle(c: cardArray)
-        collectionView.reloadData()
     }
+
+    @IBAction func restartButton(_ sender: UIButton) {
+        restartGame()
+    }
+    
+    @IBAction func homeButton(_ sender: UIButton) {
+        let vc = storyBoard.instantiateViewController(identifier: "home") as! HomeViewController
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    
 }
 
 
