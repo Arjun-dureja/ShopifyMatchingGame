@@ -12,6 +12,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     @IBOutlet weak var matchedLabel: UILabel!
     
+    @IBOutlet weak var scoreLabel: UILabel!
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     var model = CardModel()
@@ -21,7 +23,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var firstCard:Card?
     
     var matched = 0
-    
+    var score = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,13 +85,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                 self.matched += 1
                 self.matchedLabel.text = "Matched: \(self.matched)"
+                
+                self.score -= 1
+                self.scoreLabel.text = "Score: \(self.score)"
             }
             
             if(checkWin()) {
 
-                let alert = UIAlertController(title: "Congratulations!", message: "You Won", preferredStyle: .alert)
+                let alert = UIAlertController(title: "You Win!", message: "Score: \(score+1)", preferredStyle: .alert)
                 
-                let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                let alertAction = UIAlertAction(title: "Play Again", style: .default, handler: {
+                        (UIAlertAction) in
+                        self.restartGame()
+                })
                 
                 alert.addAction(alertAction)
             
@@ -103,8 +112,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             cardOne.isFlipped = false
             cardTwo.isFlipped = false
             
-            cardOneCell?.flipBack()
-            cardTwoCell?.flipBack()
+            cardOneCell?.flipBack(0.5)
+            cardTwoCell?.flipBack(0.5)
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                self.score += 1
+                self.scoreLabel.text = "Score: \(self.score)"
+            }
         }
         
         firstCardIndex = nil
@@ -129,6 +143,23 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 }
             }
         }
+        collectionView.reloadData()
+    }
+    
+    func restartGame() {
+        matched = 0
+        score = 0
+        self.scoreLabel.text = "Score: \(self.score)"
+        self.matchedLabel.text = "Matched: \(self.score)"
+        for cell in collectionView.visibleCells {
+            let cardCell = cell as? CardCollectionViewCell
+            cardCell?.flipBack(0.001)
+        }
+        for card in cardArray {
+            card.isFlipped = false
+            card.isMatched = false
+        }
+        cardArray = model.shuffle(c: cardArray)
         collectionView.reloadData()
     }
 }

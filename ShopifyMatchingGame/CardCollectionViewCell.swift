@@ -35,10 +35,9 @@ class CardCollectionViewCell: UICollectionViewCell {
     
     }
     
-    func flipBack() {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+    func flipBack(_ s:Double) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + s) {
             UIView.transition(from: self.frontImageView, to: self.backImageView, duration: 0.3, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: nil)
         }
     }
-    
 }
