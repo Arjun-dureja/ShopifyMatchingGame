@@ -1,4 +1,4 @@
-# ShopifyMatchingGame
+# Shopify Matching Game
 <h2>Swift App for Shopify Intern Application</h2>
 
 <img src="https://raw.githubusercontent.com/Arjun-dureja/ShopifyMatchingGame/master/Screenshots/Gameplay.gif" width="30%" height="30%">
