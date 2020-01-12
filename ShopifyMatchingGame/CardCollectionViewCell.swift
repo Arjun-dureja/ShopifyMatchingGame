@@ -30,11 +30,13 @@ class CardCollectionViewCell: UICollectionViewCell {
 
     }
     
+    // Method to flip card from back to front
     func flip() {
         UIView.transition(from: backImageView, to: frontImageView, duration: 0.3, options: [.transitionFlipFromLeft, .showHideTransitionViews], completion: nil)
     
     }
     
+    // Method to flip card from front to back
     func flipBack(_ s:Double) {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + s) {
             UIView.transition(from: self.frontImageView, to: self.backImageView, duration: 0.3, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: nil)

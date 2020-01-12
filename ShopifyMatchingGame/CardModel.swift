@@ -16,6 +16,7 @@ class CardModel {
         var nums = [Int]()
         var randNum = 0
         
+        // Generate x number of card pairs randomly
         while nums.count < size {
             repeat {
                 randNum = Int.random(in: 1...50)
@@ -41,6 +42,7 @@ class CardModel {
         return cards
     }
     
+    // Method to shuffle the cards when game starts or when user presses shuffle button
     func shuffle(c: [Card]) -> [Card] {
         // Shuffle cards using Knuth shuffle algorithm
         var cards = c

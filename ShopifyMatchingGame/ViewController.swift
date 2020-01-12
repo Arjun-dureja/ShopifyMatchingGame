@@ -29,6 +29,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         let layout = cardCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        
+        // Set the gridsize of the cards depending on user input
         switch gridSize {
         case 15:
             layout.itemSize = CGSize(width: 55, height: 95)
@@ -41,10 +43,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
+        
+        // Set collection view background color to clear
         self.cardCollectionView?.backgroundColor = UIColor.clear
         self.cardCollectionView?.backgroundView = UIView(frame: CGRect.zero)
     }
     
+    // Collection view protocol methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cardArray.count
     }
@@ -60,14 +65,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
-        
-        let card = cardArray[indexPath.row]
+        let cell = collectionView.cellForItem(at: indexPath) as? CardCollectionViewCell
 
+        let card = cardArray[indexPath.row]
+        
+        // Flip card if it isn't already flipped
         if card.isFlipped == false {
-            cell.flip()
+            cell?.flip()
             card.isFlipped = true
             
+            //Determine if the first or second card is selected
             if firstCardIndex == nil {
                 firstCardIndex = indexPath
                 firstCard = cardArray[firstCardIndex!.row]
@@ -78,7 +85,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    
+    // Check if both selected cards match
     func checkMatch(_ secondCardIndex:IndexPath) {
         let cardOneCell = cardCollectionView.cellForItem(at: firstCardIndex!) as? CardCollectionViewCell
         
@@ -87,10 +94,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let cardOne = cardArray[firstCardIndex!.row]
         let cardTwo = cardArray[secondCardIndex.row]
         
+        // Compare card images
         if cardOne.imageName == cardTwo.imageName {
             cardOne.isMatched = true
             cardTwo.isMatched = true
             
+            // Update score and matched counter
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                 self.matched += 1
                 self.matchedLabel.text = "Matched: \(self.matched)"
@@ -99,8 +108,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 self.scoreLabel.text = "Score: \(self.score)"
             }
             
+            // Check if all cards are matched
             if(checkWin()) {
-
+                
+                // Win alert
                 let alert = UIAlertController(title: "You Win!", message: "Score: \(score-1)", preferredStyle: .alert)
                 
                 let alertAction = UIAlertAction(title: "Home", style: .default, handler: {
@@ -119,6 +130,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             }
             
         }
+        // If cards do not match
         else {
             cardOne.isFlipped = false
             cardTwo.isFlipped = false
@@ -137,6 +149,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func checkWin() -> Bool {
+        // Iterate through all cards to check if they are matched
         for card in cardArray {
             if card.isMatched == false{
                 return false
@@ -145,8 +158,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return true
     }
 
+    // Method called when shuffle button is pressed
     @IBAction func shuffleButton(_ sender: UIButton) {
         cardArray = model.shuffle(c: cardArray)
+        
+        // Update index of first card if it is selected before pressing the shuffle button
         if firstCard != nil {
             for index in cardCollectionView.indexPathsForVisibleItems {
                 if cardArray[index.row] === firstCard {
@@ -157,6 +173,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cardCollectionView.reloadData()
     }
     
+    // Method that restarts the game when button is pressed or user wins
     func restartGame() {
         matched = 0
         score = 0
@@ -178,6 +195,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         restartGame()
     }
     
+    // Method called when home button is pressed
     @IBAction func homeButton(_ sender: UIButton) {
         let vc = storyBoard.instantiateViewController(identifier: "home") as! HomeViewController
         vc.modalPresentationStyle = .fullScreen

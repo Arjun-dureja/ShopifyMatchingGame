@@ -18,8 +18,11 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    //Method called when play button is pressed
     @IBAction func playButton(_ sender: UIButton) {
         let sliderVal = Int(slider.value)
+        
+        //Update the grid size using the slider
         switch sliderVal {
         case 2:
             vc.gridSize = 15
@@ -28,6 +31,8 @@ class HomeViewController: UIViewController {
         default:
             vc.gridSize = 10
         }
+        
+        //Switch to game view controller
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
